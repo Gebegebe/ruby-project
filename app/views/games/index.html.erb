@@ -1,0 +1,15 @@
+<h1>Listing games</h1>
+ 
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+  </tr>
+ 
+  <% @games.each do |game| %>
+    <tr>
+      <td><%= game.title %></td>
+      <td><%= game.description %></td>
+    </tr>
+  <% end %>
+</table>
