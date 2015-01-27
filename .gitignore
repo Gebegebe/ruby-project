@@ -15,3 +15,10 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore sublime project files
+
+*.sublime-project
+*.sublime-workspace
+
+start-server.bat

@@ -8,5 +8,11 @@
   <%= @game.description %>
 </p>
 
+<h2>Comments</h2>
+<%= render @game.comments %>
+ 
+<h2>Add a comment:</h2>
+<%= render 'comments/form' %>
+
 <%= link_to 'Back', games_path %>
 <%= link_to 'Edit', edit_game_path(@game) %>
