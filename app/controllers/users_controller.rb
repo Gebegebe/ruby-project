@@ -10,6 +10,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      log_in @user
+      flash[:success] = "Welcome to Game Rental!"
       redirect_to games_path
     else
       render 'new'
@@ -19,6 +21,6 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :pass)
+      params.require(:user).permit(:name, :email, :password)
     end
 end
