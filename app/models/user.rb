@@ -18,7 +18,16 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, remember_token)
   end
 
+  def forget
+    update_attribute(:remember_digest, nil)
+  end
+
+  def is_admin?
+    return (is_admin == 1)
+  end
+
   def authenticated?(remember_token)
+    return false if remember_digest.nil?
     remember_digest == remember_token
   end
 end

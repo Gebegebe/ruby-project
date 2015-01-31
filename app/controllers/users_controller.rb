@@ -8,8 +8,11 @@ class UsersController < ApplicationController
   end
 
   def create
+    if User.take == nil then admin = 1 end
     @user = User.new(user_params)
     if @user.save
+      @user.is_admin = admin
+      @user.save
       log_in @user
       flash[:success] = "Welcome to Game Rental!"
       redirect_to games_path
