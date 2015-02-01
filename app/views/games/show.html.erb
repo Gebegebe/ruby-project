@@ -1,6 +1,15 @@
 <p>
-  <strong>Title:</strong>
-  <%= @game.title %>
+
+</p>
+
+<p>
+  <% if @game.is_rented? %>
+  <h1 class="game_rented">
+  <%else%>
+  <h1 class="game_available">
+  <%end%>
+    <%= @game.title %>
+  </h1>
 </p>
  
 <p>
@@ -8,6 +17,7 @@
   <%= @game.description %>
 </p>
 
+<br/>
 <h2>Comments</h2>
 <%= render @game.comments %>
  

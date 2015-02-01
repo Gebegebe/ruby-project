@@ -42,6 +42,36 @@ class GamesController < ApplicationController
     redirect_to games_path
   end
 
+  def rent
+    @game = Game.find(params[:id])
+    if @game.is_rented?
+      flash.now[:danger] = "Game is already rented!"
+    else
+      @game.is_rented = 1
+      if !@game.save
+        flash[:danger] = "There was an error while renting game. Try again, or contact us."
+      else
+        flash[:success] = "Game rented !"
+      end
+    end
+    redirect_to @game
+  end
+
+  def unrent
+    @game = Game.find(params[:id])
+    if !@game.is_rented?
+      flash.now[:danger] = "Game isn't rented!"
+    else
+      @game.is_rented = 0
+      if !@game.save
+        flash[:danger] = "There was an error while returning game. Try again, or contact us."
+      else
+        flash[:success] = "Game returned !"
+      end
+    end
+    redirect_to @game
+  end
+
   private
   def game_params
     params.require(:game).permit(:title, :description)

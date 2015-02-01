@@ -5,18 +5,25 @@
 <table>
   <tr>
     <th id="title">Title</th>
-    <th colspan="2"></th>
+    <% if is_admin? %>
+      <th colspan="2"></th>
+    <% end %>
   </tr>
  
   <% @games.each do |game| %>
     <tr>
-      <td><%= link_to game.title, game_path(game) %></td>
-      <%= if current_user.is_admin? %>
-      <td><%= link_to 'Edit', edit_game_path(game) %></td>
-      <td><%= link_to 'Destroy', game_path(game),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %></td>
-      <%= end %>
+      <td class="game_td">
+      <% if game.is_rented? %>
+      <%= link_to game.title, game_path(game), class: "game_rented" %></td>
+      <%else%>
+      <%= link_to game.title, game_path(game), class: "game_available" %></td>
+      <%end%>
+      <% if is_admin? %>
+        <td><%= link_to 'Edit', edit_game_path(game) %></td>
+        <td><%= link_to 'Destroy', game_path(game),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
