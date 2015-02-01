@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   attr_accessor :remember_token
 
   has_many :games
-  
+
   before_save { self.email = email.downcase }
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -31,5 +31,15 @@ class User < ActiveRecord::Base
   def authenticated?(remember_token)
     return false if remember_digest.nil?
     remember_digest == remember_token
+  end
+
+  def games_rented
+    rented = RentTable.where(:user_id => id)
+    return rented
+  end
+
+  def game_rented?(game_id)
+    rented = RentTable.where(:user_id => id, :game_id =>game_id)
+    return rented.any?
   end
 end

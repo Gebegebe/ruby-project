@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   post  'login'   => 'sessions#create'
   delete  'logout'  => 'sessions#destroy'
 
-  get 'rent/:id' => 'games#rent'
+  get 'rent/:id' => 'games#rent' , as: "rent"
+  get 'unrent/:id' => 'games#unrent', as: "unrent"
 
   resources :games do
     resources :comments

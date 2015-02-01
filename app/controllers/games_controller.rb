@@ -54,6 +54,8 @@ class GamesController < ApplicationController
         flash[:success] = "Game rented !"
       end
     end
+
+    @game.rent(current_user.id)
     redirect_to @game
   end
 
@@ -69,6 +71,7 @@ class GamesController < ApplicationController
         flash[:success] = "Game returned !"
       end
     end
+    @game.unrent
     redirect_to @game
   end
 

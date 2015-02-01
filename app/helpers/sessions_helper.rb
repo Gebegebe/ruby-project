@@ -32,7 +32,7 @@ module SessionsHelper
   end
 
   def is_admin?
-    current_user.is_admin == true
+    if current_user then current_user.is_admin == true end
   end
 
   def log_out

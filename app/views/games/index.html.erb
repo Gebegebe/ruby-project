@@ -1,12 +1,16 @@
-<h1>Listing games</h1>
-
-<%= link_to 'New Game', new_game_path %>
+<h1>Our games</h1>
+<br/>
+<% if is_admin? %>
+  <%= link_to 'New Game', new_game_path %>
+<%end%>
  
 <table>
   <tr>
     <th id="title">Title</th>
     <% if is_admin? %>
       <th colspan="2"></th>
+    <%else%>
+      <th></th>
     <% end %>
   </tr>
  
@@ -23,6 +27,18 @@
         <td><%= link_to 'Destroy', game_path(game),
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %></td>
+      <%else %>
+        <td>
+          <%if game.is_rented? %>
+            <% if current_user.game_rented?(game.id) %>
+              <td class=".game_available"><%= link_to "Return", unrent_path(game.id)%> </td>
+            <% else %>
+              <td class=".game_rented">Rented</td>
+            <%end%>
+          <%else%>
+            <td class=".game_available"><%= link_to 'Rent Now!', rent_path(game.id) %></td>
+          <%end%>
+        </td>
       <% end %>
     </tr>
   <% end %>

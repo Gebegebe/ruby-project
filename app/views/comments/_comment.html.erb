@@ -1,6 +1,8 @@
 <p>
-    <strong><%= comment.commenter %></strong> : <%= comment.body %>
+    <strong><%= User.where(:id => comment.commenter)[0].name%></strong> : <%= comment.body %>
+    <% if is_admin? %>
       <%= link_to 'Destroy Comment', [comment.game, comment],
                    method: :delete,
                    data: { confirm: 'Are you sure?' } %>
+    <%end%>
 </p>
